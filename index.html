@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calculator" id="calculator">
+
+        <input type="text" id="display" disabled />
+
+    <div class="buttons">
+        <button onclick="clearDisplay()">AC</button>
+        <button onclick="deleteLast()">DEL</button>
+        <button onclick="appendOperation('/')">/</button>
+        <button onclick="appendOperation('*')">*</button>
+
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="appendOperation('-')">-</button>
+
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="appendOperation('+')">+</button>
+
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="calculateResult()">=</button>
+
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="appendNumber('.')">.</button>
+    </div>
+</div>
+
+    <!-- Background music (replace the filename with your music file if you want) -->
+    <audio id="bg-music" loop src="diddyblud.mp3" preload="auto"></audio>
+    <!-- Ringtone sound that plays when the caller appears -->
+    <audio id="ringtone" src="NOKIA.mp3" preload="auto"></audio>
+
+        <!-- Caller overlay (hidden by default). Replace assets/diddy_call.png with your image -->
+        <div id="caller-overlay" class="caller-overlay" aria-hidden="true">
+            <div class="caller-card">
+                <!-- External caller image (replace with your image file) -->
+                <img id="caller-img" src="diddycall.jpeg" alt="Diddy calling" />
+                <div class="caller-text">Diddy is calling...</div>
+                <button id="end-call" class="end-call">End call</button>
+            </div>
+        </div>
+
+        <script src="script.js" defer></script>
+</body>
+</html>
