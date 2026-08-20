@@ -7,51 +7,252 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="calculator" id="calculator">
-
-        <input type="text" id="display" disabled />
-
-    <div class="buttons">
-        <button onclick="clearDisplay()">AC</button>
-        <button onclick="deleteLast()">DEL</button>
-        <button onclick="appendOperation('/')">/</button>
-        <button onclick="appendOperation('*')">*</button>
-
-        <button onclick="appendNumber('7')">7</button>
-        <button onclick="appendNumber('8')">8</button>
-        <button onclick="appendNumber('9')">9</button>
-        <button onclick="appendOperation('-')">-</button>
-
-        <button onclick="appendNumber('4')">4</button>
-        <button onclick="appendNumber('5')">5</button>
-        <button onclick="appendNumber('6')">6</button>
-        <button onclick="appendOperation('+')">+</button>
-
-        <button onclick="appendNumber('1')">1</button>
-        <button onclick="appendNumber('2')">2</button>
-        <button onclick="appendNumber('3')">3</button>
-        <button onclick="calculateResult()">=</button>
-
-        <button onclick="appendNumber('0')">0</button>
-        <button onclick="appendNumber('.')">.</button>
-    </div>
-</div>
-
-    <!-- Background music (replace the filename with your music file if you want) -->
-    <audio id="bg-music" loop src="diddyblud.mp3" preload="auto"></audio>
-    <!-- Ringtone sound that plays when the caller appears -->
-    <audio id="ringtone" src="NOKIA.mp3" preload="auto"></audio>
-
-        <!-- Caller overlay (hidden by default). Replace assets/diddy_call.png with your image -->
-        <div id="caller-overlay" class="caller-overlay" aria-hidden="true">
-            <div class="caller-card">
-                <!-- External caller image (replace with your image file) -->
-                <img id="caller-img" src="diddycall.jpeg" alt="Diddy calling" />
-                <div class="caller-text">Diddy is calling...</div>
-                <button id="end-call" class="end-call">End call</button>
+    <div class="desk" id="desk">
+        <div class="top-hud" id="top-hud">
+            <div class="hud-lcd coin-lcd" id="coin-hud" title="Coins">
+                <span class="hud-label">COIN</span>
+                <span id="coin-count">0</span>
             </div>
+            <div class="hud-lcd xp-lcd" id="xp-hud">
+                <span class="hud-label" id="rank-title">MATH BABY</span>
+                <span id="level-label">LV 1</span>
+                <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+            </div>
+            <div class="hud-chips">
+                <span class="chip" id="combo-chip">COMBO x1</span>
+                <span class="chip" id="cps-chip">0/s</span>
+                <span class="chip" id="prestige-chip" hidden>x1 PRESTIGE</span>
+                <span class="chip frenzy" id="frenzy-chip" hidden>FRENZY</span>
+                <span class="chip" id="buff-chip" hidden>BUFFS</span>
+                <span class="chip" id="clock-chip">00:00</span>
+                <span class="chip" id="cpm-chip">0 cpm</span>
+            </div>
+            <div class="hud-actions">
+                <button type="button" class="hud-btn" id="shop-btn">SHOP</button>
+                <button type="button" class="hud-btn" id="stats-btn">STATS</button>
+                <button type="button" class="hud-btn" id="quest-btn">QUESTS</button>
+                <button type="button" class="hud-btn" id="dex-btn">100</button>
+                <button type="button" class="hud-btn" id="settings-btn">SET</button>
+                <button type="button" class="hud-btn" id="mute-btn">MUTE</button>
+            </div>
+            <div class="save-dot" id="save-dot" title="Saved">OK</div>
         </div>
 
-        <script src="script.js" defer></script>
+        <div class="workspace">
+            <aside class="side-panel tape-panel" id="tape-panel">
+                <div class="panel-head">TAPE</div>
+                <div class="tape-roll" id="tape-roll"></div>
+                <div class="small-controls">
+                    <button type="button" id="copy-tape">COPY</button>
+                    <button type="button" id="clear-tape">RIP</button>
+                </div>
+            </aside>
+
+            <div class="calculator" id="calculator">
+                <div class="calc-top">
+                    <div class="nick" id="calc-nick">CALCULATOR</div>
+                    <div class="mini-lcd" id="mem-lcd">M 0</div>
+                    <div class="mini-lcd" id="session-lcd">00:00</div>
+                </div>
+                <img id="pet-diddy" class="pet-diddy" src="diddycall.jpeg" alt="" hidden>
+                <div class="sticky" id="sticky" contenteditable="true">buy milk & coins</div>
+                <input type="text" id="display" disabled />
+                <div class="calc-sub" id="calc-sub">READY.</div>
+                <div class="hot-row">
+                    <button type="button" onclick="undoLast()">UNDO</button>
+                    <button type="button" onclick="maybeBtn()">MAYBE</button>
+                    <button type="button" id="free-btn" onclick="freeCoins()">FREE</button>
+                    <button type="button" id="double-btn" onclick="doubleOrNothing()" hidden>2X?</button>
+                </div>
+
+                <div class="buttons" id="main-buttons">
+                    <button type="button" onclick="clearDisplay()">AC</button>
+                    <button type="button" onclick="deleteLast()">DEL</button>
+                    <button type="button" onclick="appendOperation('/')">/</button>
+                    <button type="button" onclick="appendOperation('*')">*</button>
+
+                    <button type="button" onclick="appendNumber('7')">7</button>
+                    <button type="button" onclick="appendNumber('8')">8</button>
+                    <button type="button" onclick="appendNumber('9')">9</button>
+                    <button type="button" onclick="appendOperation('-')">-</button>
+
+                    <button type="button" onclick="appendNumber('4')">4</button>
+                    <button type="button" onclick="appendNumber('5')">5</button>
+                    <button type="button" onclick="appendNumber('6')">6</button>
+                    <button type="button" onclick="appendOperation('+')">+</button>
+
+                    <button type="button" onclick="appendNumber('1')">1</button>
+                    <button type="button" onclick="appendNumber('2')">2</button>
+                    <button type="button" onclick="appendNumber('3')">3</button>
+                    <button type="button" onclick="calculateResult()">=</button>
+
+                    <button type="button" onclick="appendNumber('0')">0</button>
+                    <button type="button" onclick="appendNumber('.')">.</button>
+                </div>
+
+                <div class="extra-buttons" id="extra-keys" hidden>
+                    <button type="button" onclick="toggleSign()">+/-</button>
+                    <button type="button" onclick="applyPercent()">%</button>
+                    <button type="button" onclick="applySqrt()">√</button>
+                    <button type="button" onclick="insertPi()">π</button>
+                </div>
+                <div class="extra-buttons" id="mem-keys" hidden>
+                    <button type="button" onclick="memoryClear()">MC</button>
+                    <button type="button" onclick="memoryRecall()">MR</button>
+                    <button type="button" onclick="memoryAdd()">M+</button>
+                    <button type="button" onclick="memorySub()">M-</button>
+                </div>
+                <div class="extra-buttons" id="sci-keys" hidden>
+                    <button type="button" onclick="jokeSin()">sin</button>
+                    <button type="button" onclick="jokeCos()">cos</button>
+                    <button type="button" onclick="rollDice()">d6</button>
+                    <button type="button" onclick="flipCoin()">FLIP</button>
+                    <button type="button" onclick="randomFill()">RND</button>
+                </div>
+            </div>
+
+            <aside class="side-panel clicker-panel" id="clicker-panel">
+                <div class="panel-head">CLICKER</div>
+                <button type="button" class="smash-btn" id="smash-btn">SMASH<br><small id="smash-power">+1</small></button>
+                <div class="clicker-stats">
+                    <div>CLICKS <b id="click-count">0</b></div>
+                    <div>POWER <b id="click-power">1</b></div>
+                    <div>IDLE <b id="idle-rate">0</b>/s</div>
+                    <div>CRIT <b id="crit-chance">5%</b></div>
+                </div>
+                <div class="small-controls">
+                    <button type="button" id="wheel-btn" onclick="spinWheel()">SPIN</button>
+                    <button type="button" id="crate-btn" onclick="openCrate()">CRATE 75</button>
+                </div>
+                <div class="small-controls">
+                    <button type="button" id="prestige-btn">TAX AUDIT</button>
+                </div>
+            </aside>
+        </div>
+
+        <div class="quest-bar" id="quest-bar"></div>
+    </div>
+
+    <div id="fx-layer" class="fx-layer"></div>
+    <div id="toast-stack" class="toast-stack"></div>
+
+    <div id="shop-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card shop-card">
+            <div class="modal-head">
+                <span>COIN SHOP</span>
+                <span id="shop-sale" class="sale-tag" hidden>SALE</span>
+                <button type="button" class="end-call" id="shop-close">X</button>
+            </div>
+            <div class="shop-tabs">
+                <button type="button" class="tab on" data-tab="upgrades">UPGRADES</button>
+                <button type="button" class="tab" data-tab="consumables">SNACKS</button>
+                <button type="button" class="tab" data-tab="cosmetics">PAINT</button>
+                <button type="button" class="tab" data-tab="unlocks">KEYS</button>
+                <button type="button" class="tab" data-tab="bank">BANK</button>
+                <button type="button" class="tab" id="secret-tab" data-tab="secret" hidden>SECRET</button>
+            </div>
+            <div class="shop-list" id="shop-list"></div>
+        </div>
+    </div>
+
+    <div id="stats-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            <div class="modal-head">
+                <span>STATS / TROPHIES</span>
+                <button type="button" class="end-call" id="stats-close">X</button>
+            </div>
+            <div id="stats-body" class="stats-body"></div>
+        </div>
+    </div>
+
+    <div id="dex-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            <div class="modal-head">
+                <span>FEATURE DEX</span>
+                <span id="dex-count">0/100</span>
+                <button type="button" class="end-call" id="dex-close">X</button>
+            </div>
+            <div id="dex-body" class="dex-body"></div>
+        </div>
+    </div>
+
+    <div id="settings-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            <div class="modal-head">
+                <span>SETTINGS</span>
+                <button type="button" class="end-call" id="settings-close">X</button>
+            </div>
+            <label class="setting-row">VOLUME <input type="range" id="vol-slider" min="0" max="100" value="20"></label>
+            <label class="setting-row">NICK <input type="text" id="nick-input" maxlength="18" value="CALCULATOR"></label>
+            <label class="setting-row">CODE <input type="text" id="code-input" maxlength="16" placeholder="DIDDY"> <button type="button" id="code-btn">REDEEM</button></label>
+            <label class="setting-row"><input type="checkbox" id="shake-toggle" checked> SCREEN SHAKE</label>
+            <label class="setting-row"><input type="checkbox" id="confetti-toggle" checked> CONFETTI</label>
+            <label class="setting-row"><input type="checkbox" id="toasts-toggle" checked> TOASTS</label>
+            <div class="small-controls">
+                <button type="button" id="export-save">EXPORT</button>
+                <button type="button" id="import-save">IMPORT</button>
+            </div>
+            <button type="button" id="reset-save">ERASE SAVE (SCARY)</button>
+        </div>
+    </div>
+
+    <div id="jackpot-overlay" class="modal-overlay splash" aria-hidden="true">
+        <div class="modal-card jackpot-card">
+            <div class="jackpot-title" id="jackpot-title">JACKPOT</div>
+            <div class="jackpot-amt" id="jackpot-amt">+0</div>
+            <button type="button" class="end-call" id="jackpot-ok">TAKE IT</button>
+        </div>
+    </div>
+
+    <div id="levelup-overlay" class="modal-overlay splash" aria-hidden="true">
+        <div class="modal-card">
+            <div class="jackpot-title">LEVEL UP</div>
+            <div id="levelup-text">LV 2</div>
+            <button type="button" class="end-call" id="levelup-ok">NICE</button>
+        </div>
+    </div>
+
+    <div id="wheel-overlay" class="modal-overlay splash" aria-hidden="true">
+        <div class="modal-card jackpot-card">
+            <div class="jackpot-title">WHEEL</div>
+            <div class="jackpot-amt" id="wheel-amt">?</div>
+            <button type="button" class="end-call" id="wheel-ok">OK</button>
+        </div>
+    </div>
+
+    <div id="salesman-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            <div class="modal-head">A GUY IN THE HALL</div>
+            <p id="salesman-text">I got a crate. 50 coins. Take it or leave it.</p>
+            <div class="small-controls">
+                <button type="button" id="salesman-yes">BUY</button>
+                <button type="button" id="salesman-no">NAH</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            <div class="modal-head">THIS CALCULATOR IS A GAME NOW</div>
+            <p>Smash buttons. Get coins. Buy junk. Diddy still calls. Math is optional.</p>
+            <button type="button" class="end-call" id="tutorial-ok">LET ME IN</button>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop src="diddyblud.mp3" preload="auto"></audio>
+    <audio id="ringtone" src="NOKIA.mp3" preload="auto"></audio>
+
+    <div id="caller-overlay" class="caller-overlay" aria-hidden="true">
+        <div class="caller-card">
+            <img id="caller-img" src="diddycall.jpeg" alt="Diddy calling" />
+            <div class="caller-text">Diddy is calling...</div>
+            <div class="small-controls" style="justify-content:center">
+                <button type="button" id="answer-call" class="answer-call">Answer</button>
+                <button type="button" id="end-call" class="end-call">End call</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
